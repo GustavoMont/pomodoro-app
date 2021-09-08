@@ -9,5 +9,7 @@ const Clock = styled.View`
     border-radius: 200px;
     justify-content: center;
     align-items: center;
+    border: 5px solid #fbebae;
+
 ` 
 export default Clock
