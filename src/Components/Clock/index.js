@@ -18,9 +18,8 @@ export const Clock = styled.View`
 export const Setas = styled.View`
     padding: 0;
     position: absolute;
-    top: ${props => props.positionY === 'up' ? '-22.8px': 'auto'};
-    bottom: ${props => props.positionY === 'bottom' ? '-22.8px' : 'auto'};
+    ${props =>props.positionY ? props.positionY : ''}
     left: ${props => props.positionY ? '43.5%' : 'auto'};
     ${props => props.positionX ? props.positionX : ''};
-    transform: ${props => props.positionY != 'up' ? `rotate(${props.rotate}deg)` : 'rotate(0deg)'};
+    transform: ${props => `rotate(${props.rotate}deg)`};
 `

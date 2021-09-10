@@ -15,16 +15,16 @@ export default function App() {
 
       <View>
         <Clock>
-          <Setas positionY="up">
+          <Setas positionY={"top: -22.8px"} rotate={0}>
             <Entypo name="triangle-down" size={50} color="#9f0"/>
           </Setas>
-          <Setas positionX={"right: -20.8px;"} rotate={90}>
+          <Setas positionX={"right: -22.8px;"} rotate={90}>
             <Entypo name="triangle-down" size={50} color="#9f0"/>
           </Setas>
-          <Setas positionY="bottom" rotate={180}>
+          <Setas positionY={"bottom: -22.8px"} rotate={180}>
             <Entypo name="triangle-down" size={50} color="#9f0"/>
           </Setas>
-          <Setas positionX={"left: -20.8px;"} rotate={-90}>
+          <Setas positionX={"left: -22.8px;"} rotate={-90}>
             <Entypo name="triangle-down" size={50} color="#9f0"/>
           </Setas>
           <Time>25:00</Time>
