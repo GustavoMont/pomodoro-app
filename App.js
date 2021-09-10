@@ -5,7 +5,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'
-import Clock from './src/Components/Clock';
+import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
 
 export default function App() {
@@ -15,6 +15,18 @@ export default function App() {
 
       <View>
         <Clock>
+          <Setas positionY="up">
+            <Entypo name="triangle-down" size={50} color="#9f0"/>
+          </Setas>
+          <Setas positionX={"right: -20.8px;"} rotate={90}>
+            <Entypo name="triangle-down" size={50} color="#9f0"/>
+          </Setas>
+          <Setas positionY="bottom" rotate={180}>
+            <Entypo name="triangle-down" size={50} color="#9f0"/>
+          </Setas>
+          <Setas positionX={"left: -20.8px;"} rotate={-90}>
+            <Entypo name="triangle-down" size={50} color="#9f0"/>
+          </Setas>
           <Time>25:00</Time>
         </Clock>
       </View>
@@ -43,3 +55,10 @@ export default function App() {
   );
 }
 
+const styles = StyleSheet.create({
+  triangulo:{
+    borderTopLeftRadius: 10,
+  }
+
+
+})
