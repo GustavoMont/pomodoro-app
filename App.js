@@ -6,10 +6,11 @@ import {
 import { Entypo } from '@expo/vector-icons'
 import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
+import { handleCiclo, startTimer, stopTimer } from './src/Utils';
 
 export default function App() {
 
-  const ciclo = [25, 5,/* 25, 5, 25, 5, */25, 15]
+  const ciclo = [7, 5,/* 7, 5, 7, 5, */7, 15]
   const [resultado, setResultado] = useState('25:00')
   const [segundos, setSegundos] = useState(ciclo[0])
   const [trigger, setTrigger] = useState(false)
@@ -17,33 +18,18 @@ export default function App() {
   const [timer, setTimer] = useState(undefined);
   let contador = segundos
 
-  const handleCiclo = (atual) =>{
-    if (atual === ciclo.length - 2) {
-      return -1;
-    }
-    return atual + 1
-  }
-  
-  const startTimer = () =>{
-    setTimer(setInterval(() => {
-      contador--
-      setSegundos(contador)
-    }, 1000));
-  }
-
-  const stopInterval = () =>{
-      clearInterval(timer)
-}
+  useEffect(() =>{
+    setSegundos(ciclo[indexCiclo])
+  }, [indexCiclo])
 
   useEffect(() =>{
     if (contador < 0) {
-      stopInterval()
-      setSegundos(ciclo[indexCiclo+1]);
-      setIndexCiclo(handleCiclo(indexCiclo))
+      stopTimer(timer)
+      setIndexCiclo(handleCiclo(indexCiclo+1, ciclo))
       return
     }
     if (trigger) {
-      startTimer()
+      startTimer(setTimer, contador, setSegundos)
       setTrigger(false)
     }
     setResultado(`${Math.floor(segundos/60)}:${segundos%60 < 10 ? '0' + segundos%60 : segundos%60}`)
@@ -76,19 +62,24 @@ export default function App() {
       </View>
 
       <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-        {/* <TouchableOpacity activeOpacity={true}>
-          <Entypo name="controller-jump-to-start" size={50} color="#fff" />
-        </TouchableOpacity> */}
+        <TouchableOpacity activeOpacity={true}  onPress={() =>{
+              stopTimer(timer)
+              const index = indexCiclo > 0 ? indexCiclo - 1 : 0
+              setSegundos(ciclo[index])
+              setIndexCiclo(index)
+          }} >
+          <Entypo name="controller-jump-to-start" size={50} color="#fff"/>
+        </TouchableOpacity>
         <TouchableOpacity >
           <Entypo name="controller-stop" size={50} color="#fff" onPress={() =>{
-            stopInterval()
-            setSegundos(ciclo[indexCiclo < 0 ? ciclo.length-1: indexCiclo])
+            stopTimer(timer)
+            setSegundos(ciclo[indexCiclo])
           }}/>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {setTrigger(true)}}>
           <Entypo name="controller-play" size={50} color="#fff"></Entypo>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {stopInterval()}} >
+        <TouchableOpacity onPress={() => {stopTimer(timer)}} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
         {/* <TouchableOpacity>
