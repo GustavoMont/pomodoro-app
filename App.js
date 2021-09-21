@@ -18,25 +18,36 @@ export default function App() {
   const [timer, setTimer] = useState(undefined);
   let contador = segundos
 
-  useEffect(() =>{
+  useEffect(() => {
     setSegundos(ciclo[indexCiclo])
   }, [indexCiclo])
 
-  useEffect(() =>{
+  useEffect(() => {
     if (contador < 0) {
       stopTimer(timer)
-      setIndexCiclo(handleCiclo(indexCiclo+1, ciclo))
+      setIndexCiclo(handleCiclo(indexCiclo + 1, ciclo))
       return
     }
     if (trigger) {
       startTimer(setTimer, contador, setSegundos)
       setTrigger(false)
     }
-    setResultado(`${Math.floor(segundos/60)}:${segundos%60 < 10 ? '0' + segundos%60 : segundos%60}`)
+    setResultado(`${Math.floor(segundos / 60)}:${segundos % 60 < 10 ? '0' + segundos % 60 : segundos % 60}`)
   }, [segundos, trigger])
 
 
-
+  const changeInterval = (step, ciclo, setVar, setRes) => {
+    let index;
+    if (step === -1) {
+      index = indexCiclo > 0 ? indexCiclo + step : 0
+    }
+    else{
+      index = indexCiclo >= ciclo.length-1 ? 0 : indexCiclo + step
+    }
+    stopTimer(timer)
+    setRes(ciclo[index])
+    setVar(index)
+  }
 
 
   return (
@@ -46,45 +57,40 @@ export default function App() {
       <View>
         <Clock>
           <Setas positionY={"top: -22.8px"} rotate={0}>
-            <Entypo name="triangle-down" size={50} color="#9f0"/>
+            <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
           <Setas positionX={"right: -22.8px;"} rotate={90}>
-            <Entypo name="triangle-down" size={50} color="#9f0"/>
+            <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
           <Setas positionY={"bottom: -22.8px"} rotate={180}>
-            <Entypo name="triangle-down" size={50} color="#9f0"/>
+            <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
           <Setas positionX={"left: -22.8px;"} rotate={-90}>
-            <Entypo name="triangle-down" size={50} color="#9f0"/>
+            <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
           <Time>{resultado}</Time>
         </Clock>
       </View>
 
-      <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-        <TouchableOpacity activeOpacity={true}  onPress={() =>{
-              stopTimer(timer)
-              const index = indexCiclo > 0 ? indexCiclo - 1 : 0
-              setSegundos(ciclo[index])
-              setIndexCiclo(index)
-          }} >
-          <Entypo name="controller-jump-to-start" size={50} color="#fff"/>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+        <TouchableOpacity onPress={() => changeInterval(-1, ciclo, setIndexCiclo, setSegundos)} >
+          <Entypo name="controller-jump-to-start" size={50} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity >
-          <Entypo name="controller-stop" size={50} color="#fff" onPress={() =>{
+          <Entypo name="controller-stop" size={50} color="#fff" onPress={() => {
             stopTimer(timer)
             setSegundos(ciclo[indexCiclo])
-          }}/>
+          }} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {setTrigger(true)}}>
+        <TouchableOpacity onPress={() => { setTrigger(true) }}>
           <Entypo name="controller-play" size={50} color="#fff"></Entypo>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {stopTimer(timer)}} >
+        <TouchableOpacity onPress={() => { stopTimer(timer) }} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
-        {/* <TouchableOpacity>
+        <TouchableOpacity onPress={() => changeInterval(1, ciclo, setIndexCiclo, setSegundos)}>
           <Entypo name="controller-next" size={50} color="#fff" />
-        </TouchableOpacity> */}
+        </TouchableOpacity>
 
       </View>
 
@@ -94,7 +100,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  triangulo:{
+  triangulo: {
     borderTopLeftRadius: 10,
   }
 
