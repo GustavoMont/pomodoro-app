@@ -6,7 +6,7 @@ import {
 import { Entypo } from '@expo/vector-icons'
 import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
-import { handleCiclo, startTimer, stopTimer } from './src/Utils';
+import { handleCiclo, startTimer, stopTimer, changeInterval } from './src/Utils';
 
 export default function App() {
 
@@ -36,20 +36,6 @@ export default function App() {
   }, [segundos, trigger])
 
 
-  const changeInterval = (step, ciclo, setVar, setRes) => {
-    let index;
-    if (step === -1) {
-      index = indexCiclo > 0 ? indexCiclo + step : 0
-    }
-    else{
-      index = indexCiclo >= ciclo.length-1 ? 0 : indexCiclo + step
-    }
-    stopTimer(timer)
-    setRes(ciclo[index])
-    setVar(index)
-  }
-
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#135756' }}>
       <StatusBar barStyle="light-content" backgroundColor="#1c8080" />
@@ -73,7 +59,7 @@ export default function App() {
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <TouchableOpacity onPress={() => changeInterval(-1, ciclo, setIndexCiclo, setSegundos)} >
+        <TouchableOpacity onPress={() => changeInterval(-1, ciclo, indexCiclo,setIndexCiclo, setSegundos, timer)} >
           <Entypo name="controller-jump-to-start" size={50} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity >
@@ -88,7 +74,7 @@ export default function App() {
         <TouchableOpacity onPress={() => { stopTimer(timer) }} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => changeInterval(1, ciclo, setIndexCiclo, setSegundos)}>
+        <TouchableOpacity onPress={() => changeInterval(1, ciclo, indexCiclo,setIndexCiclo, setSegundos, timer)}>
           <Entypo name="controller-next" size={50} color="#fff" />
         </TouchableOpacity>
 
