@@ -3,11 +3,13 @@ import { Entypo } from '@expo/vector-icons'
 
 export const Clock = styled.View`
     background-color: #ff1d43;
-    width: 400px;
-    height: 400px;
+    width: 80vw;
+    height: 80vw;
+    max-width: 700px;
+    max-height: 700px;
     align-self: center;
     margin: 100px auto;
-    border-radius: 200px;
+    border-radius: 50%;
     justify-content: center;
     align-items: center;
     border: 5px solid #fbebae;
