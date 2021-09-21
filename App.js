@@ -9,11 +9,12 @@ import Time from './src/Components/Time'
 
 export default function App() {
 
-  const ciclo = [25, 5, 25, 5, 25, 5, 25, 15]
+  const ciclo = [25, 5,/* 25, 5, 25, 5, */25, 15]
   const [resultado, setResultado] = useState('25:00')
   const [segundos, setSegundos] = useState(ciclo[0])
-  const [run, setRun] = useState(false)
+  const [trigger, setTrigger] = useState(false)
   const [indexCiclo, setIndexCiclo] = useState(0)
+  const [timer, setTimer] = useState(undefined);
   let contador = segundos
 
   const handleCiclo = (atual) =>{
@@ -22,25 +23,31 @@ export default function App() {
     }
     return atual + 1
   }
-  const timer = useCallback(() =>{
-    setTimeout(() => {
+  
+  const startTimer = () =>{
+    setTimer(setInterval(() => {
       contador--
       setSegundos(contador)
-    }, 1000);
-  }, [run])
-  
+    }, 1000));
+  }
+
+  const stopInterval = () =>{
+      clearInterval(timer)
+}
+
   useEffect(() =>{
     if (contador < 0) {
-      setRun(false)
+      stopInterval()
       setSegundos(ciclo[indexCiclo+1]);
       setIndexCiclo(handleCiclo(indexCiclo))
       return
     }
-    if (run) {
-      timer()
+    if (trigger) {
+      startTimer()
+      setTrigger(false)
     }
     setResultado(`${Math.floor(segundos/60)}:${segundos%60 < 10 ? '0' + segundos%60 : segundos%60}`)
-  }, [segundos, run])
+  }, [segundos, trigger])
 
 
 
@@ -73,12 +80,15 @@ export default function App() {
           <Entypo name="controller-jump-to-start" size={50} color="#fff" />
         </TouchableOpacity> */}
         <TouchableOpacity >
-          <Entypo name="controller-stop" size={50} color="#fff" />
+          <Entypo name="controller-stop" size={50} color="#fff" onPress={() =>{
+            stopInterval()
+            setSegundos(ciclo[indexCiclo < 0 ? ciclo.length-1: indexCiclo])
+          }}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {setRun(true)}}>
+        <TouchableOpacity onPress={() => {setTrigger(true)}}>
           <Entypo name="controller-play" size={50} color="#fff"></Entypo>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {setRun(false)}} >
+        <TouchableOpacity onPress={() => {stopInterval()}} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
         {/* <TouchableOpacity>
