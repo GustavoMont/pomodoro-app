@@ -6,10 +6,10 @@ import {
 import { Entypo } from '@expo/vector-icons'
 import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
-import { handleCiclo, startTimer, stopTimer, changeInterval } from './src/Utils';
+import { handleCiclo, startTimer, stopTimer, changeInterval, playSound } from './src/Utils';
 
 export default function App() {
-
+  const [sound, setSound] = useState()
   const ciclo = [7, 5,/* 7, 5, 7, 5, */7, 15]
   const [resultado, setResultado] = useState('25:00')
   const [segundos, setSegundos] = useState(ciclo[0])
@@ -24,6 +24,7 @@ export default function App() {
 
   useEffect(() => {
     if (contador < 0) {
+      playSound(setSound, true)
       stopTimer(timer)
       setIndexCiclo(handleCiclo(indexCiclo + 1, ciclo))
       return
@@ -59,22 +60,29 @@ export default function App() {
       </View>
 
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <TouchableOpacity onPress={() => changeInterval(-1, ciclo, indexCiclo,setIndexCiclo, setSegundos, timer)} >
+        <TouchableOpacity onPress={() => {
+          playSound(setSound)
+          changeInterval(-1, ciclo, indexCiclo, setIndexCiclo, timer)
+        }}>
           <Entypo name="controller-jump-to-start" size={50} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity >
           <Entypo name="controller-stop" size={50} color="#fff" onPress={() => {
+            playSound(setSound)
             stopTimer(timer)
             setSegundos(ciclo[indexCiclo])
           }} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { setTrigger(true) }}>
+        <TouchableOpacity onPress={() => { 
+            playSound(setSound)
+            setTrigger(true) 
+          }}>
           <Entypo name="controller-play" size={50} color="#fff"></Entypo>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { stopTimer(timer) }} >
+        <TouchableOpacity onPress={() => { playSound(setSound); stopTimer(timer) }} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => changeInterval(1, ciclo, indexCiclo,setIndexCiclo, setSegundos, timer)}>
+        <TouchableOpacity onPress={() =>  {playSound(setSound); changeInterval(1, ciclo, indexCiclo, setIndexCiclo, setSegundos, timer)}} >
           <Entypo name="controller-next" size={50} color="#fff" />
         </TouchableOpacity>
 
