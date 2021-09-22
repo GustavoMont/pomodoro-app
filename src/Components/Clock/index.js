@@ -15,6 +15,7 @@ export const Clock = styled.View`
     border: 5px solid #fbebae;
     position: relative;
     overflow: hidden;
+    box-shadow: 0px 4px 20px #252525;
 ` 
 
 export const Setas = styled.View`

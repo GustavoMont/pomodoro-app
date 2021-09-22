@@ -38,7 +38,7 @@ export default function App() {
 
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#135756' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f93737' }}>
       <StatusBar barStyle="light-content" backgroundColor="#1c8080" />
 
       <View>
