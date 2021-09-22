@@ -1,15 +1,14 @@
 import styled from 'styled-components/native';
-import { Entypo } from '@expo/vector-icons'
 
 export const Clock = styled.View`
     background-color: #ff1d43;
-    width: 80vw;
-    height: 80vw;
+    width: ${props => `${props.size * 90}px`};
+    height: ${props => `${props.size * 90}px`};
     max-width: 400px;
-    max-height: 400px;
+    max-height: 400px; 
     align-self: center;
     margin: 100px auto;
-    border-radius: 50%;
+    border-radius: ${props => `${props.size *90}px`};
     justify-content: center;
     align-items: center;
     border: 5px solid #fbebae;

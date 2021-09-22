@@ -1,20 +1,26 @@
 
 import React from 'react';
 import {
-  SafeAreaView, StyleSheet, Text, View, StatusBar,
-  TouchableOpacity
+  SafeAreaView, StyleSheet, View, StatusBar,
+  TouchableOpacity, Dimensions
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'
 import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
 
+const {width, height} = Dimensions.get('screen')
+
+
 export default function App() {
+
+
+
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#f93737' }}>
-      <StatusBar barStyle="light-content" backgroundColor="#1c8080" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#33711b' }}>
+      <StatusBar barStyle="light-content" backgroundColor="#1e4010"/>
 
       <View>
-        <Clock>
+        <Clock size={width/100}>
           <Setas positionY={"top: -22.8px"} rotate={0}>
             <Entypo name="triangle-down" size={50} color="#9f0"/>
           </Setas>
