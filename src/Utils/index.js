@@ -23,7 +23,9 @@ export const startTimer = (setTimer, contador, updater) => {
     }, 1000));
 }
 
-export const stopTimer = (timer) => {
+export const stopTimer = (timer, setIsRunning, setTrigger) => {
+    setIsRunning(false)
+    setTrigger(false)
     clearInterval(timer)
 }
 

@@ -27,11 +27,11 @@ export default function App() {
   useEffect(() => {
     if (contador < 0) {
       playSound(setSound, true)
-      stopTimer(timer)
+      stopTimer(timer, setIsRunning, setTrigger)
       setIndexCiclo(handleCiclo(indexCiclo + 1, ciclo))
       return
     }
-    if (trigger /*&& !isRunning*/) {
+    if (trigger && !isRunning) {
       startTimer(setTimer, contador, setSegundos)
       setTrigger(false)
       setIsRunning(true)
@@ -48,7 +48,7 @@ export default function App() {
     else {
       index = indexCiclo >= ciclo.length - 1 ? 0 : indexCiclo + step
     }
-    stopTimer(timer, setIsRunning)
+    stopTimer(timer, setIsRunning, setTrigger)
     setSegundos(ciclo[index])
     setIndexCiclo(index)
   }
@@ -97,7 +97,7 @@ export default function App() {
         }}>
           <Entypo name="controller-play" size={50} color="#fff"></Entypo>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => { playSound(setSound); stopTimer(timer, setIsRunning) }} >
+        <TouchableOpacity onPress={() => { playSound(setSound); stopTimer(timer, setIsRunning, setTrigger);}} >
           <Entypo name="controller-paus" size={50} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => { playSound(setSound); changeInterval(1) }} >
