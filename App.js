@@ -62,7 +62,7 @@ export default function App() {
       <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <TouchableOpacity onPress={() => {
           playSound(setSound)
-          changeInterval(-1, ciclo, indexCiclo, setIndexCiclo, timer)
+          changeInterval(-1, ciclo, indexCiclo, setIndexCiclo, setSegundos,timer)
         }}>
           <Entypo name="controller-jump-to-start" size={50} color="#fff" />
         </TouchableOpacity>
