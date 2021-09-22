@@ -27,16 +27,3 @@ export const stopTimer = (timer) => {
     clearInterval(timer)
 }
 
-export const changeInterval = (step, ciclo, indexCiclo,setVar, setRes,timer) => {
-    let index;
-    if (step === -1) {
-        index = indexCiclo > 0 ? indexCiclo + step : 0
-    }
-    else {
-        index = indexCiclo >= ciclo.length - 1 ? 0 : indexCiclo + step
-    }
-    stopTimer(timer, 'eu que chamei')
-    setRes(ciclo[index])
-    setVar(index)
-}
-
