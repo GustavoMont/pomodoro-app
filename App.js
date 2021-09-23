@@ -29,6 +29,7 @@ export default function App() {
   }, [indexCiclo])
 
   useEffect(() => {
+    const segundosFormatado = segundos%60 < 10 ? '0'+segundos%60 : segundos%60
     if (contador < 0) {
       playSound(setSound, true)
       stopTimer(timer, setIsRunning, setTrigger)
@@ -40,7 +41,7 @@ export default function App() {
       setTrigger(false)
       setIsRunning(true)
     }
-    setResultado(`${segundos}`)
+    setResultado(`${Math.floor(segundos/60)}:${segundosFormatado}`)
   }, [segundos, trigger])
 
 
@@ -60,7 +61,7 @@ export default function App() {
   const fonts = useFonts({Exo_500Medium})
 
   if (!fonts) {
-    <AppLoading />
+   return <AppLoading />
   }
 
   return (
@@ -81,7 +82,7 @@ export default function App() {
           <Setas positionX={"left: -22.8px;"} rotate={-90}>
             <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
-          <Time font={'Exo_500Medium'}>25:00</Time>
+          <Time font={'Exo_500Medium'}>{resultado}</Time>
         </Clock>
       </View>
 
