@@ -10,9 +10,9 @@ import { handleCiclo, startTimer, stopTimer, playSound } from './src/Utils';
 
 export default function App() {
   const [sound, setSound] = useState()
-  const ciclo = [7, 5,/* 7, 5, 7, 5, */7, 15]
+  const ciclo = [25, 5, 25, 5, 25, 5, 25, 15]
   const [resultado, setResultado] = useState('25:00')
-  const [segundos, setSegundos] = useState(ciclo[0])
+  const [segundos, setSegundos] = useState(ciclo[0]*60)
   const [trigger, setTrigger] = useState(false)
   const [isRunning, setIsRunning] = useState(false)
   const [indexCiclo, setIndexCiclo] = useState(0)
@@ -21,7 +21,7 @@ export default function App() {
   let contador = segundos
 
   useEffect(() => {
-    setSegundos(ciclo[indexCiclo])
+    setSegundos(ciclo[indexCiclo] * 60)
   }, [indexCiclo])
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function App() {
       index = indexCiclo >= ciclo.length - 1 ? 0 : indexCiclo + step
     }
     stopTimer(timer, setIsRunning, setTrigger)
-    setSegundos(ciclo[index])
+    setSegundos(ciclo[index]*60)
     setIndexCiclo(index)
   }
 
