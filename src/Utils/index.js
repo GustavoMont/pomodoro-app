@@ -26,7 +26,7 @@ export const handleCiclo = (atual, ciclo) => {
 export const startTimer = (setTimer, contador, updater) => {
     setTimer(setInterval(() => {
         contador--
-        updater(contador*60)
+        updater(contador)
     }, 1000));
 }
 
