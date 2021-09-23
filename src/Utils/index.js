@@ -1,6 +1,4 @@
-import { Audio } from 'expo-av';
-
-
+import { Audio } from "expo-av";
 export async function playSound(setSound, despertador = false) { 
     if (despertador) {
         const { sound } = await Audio.Sound.createAsync(
