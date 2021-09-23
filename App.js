@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   SafeAreaView, StyleSheet, View, StatusBar,
-  TouchableOpacity, Dimensions
+  TouchableOpacity, Dimensions, Text
 } from 'react-native';
 import { Entypo } from '@expo/vector-icons'
 import AppLoading from 'expo-app-loading';
-import { Exo_500Medium, useFonts } from '@expo-google-fonts/exo';
+import { Exo_600SemiBold_Italic, useFonts } from '@expo-google-fonts/exo';
 import { Clock, Setas } from './src/Components/Clock';
 import Time from './src/Components/Time'
 import { handleCiclo, startTimer, stopTimer, playSound } from './src/Utils';
 
-const {width, height} = Dimensions.get('screen')
 
 export default function App() {
   const [sound, setSound] = useState()
@@ -58,11 +57,16 @@ export default function App() {
     setIndexCiclo(index)
   }
 
-  const fonts = useFonts({Exo_500Medium})
+  let {width, height} = Dimensions.get('screen')
 
-  if (!fonts) {
-   return <AppLoading />
-  }
+
+  const [ fonts ] = useFonts({
+    Exo_600SemiBold_Italic
+    })
+
+    if (!fonts) {
+      return <AppLoading />
+    }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#33711b' }}>
@@ -82,7 +86,7 @@ export default function App() {
           <Setas positionX={"left: -22.8px;"} rotate={-90}>
             <Entypo name="triangle-down" size={50} color="#9f0" />
           </Setas>
-          <Time font={'Exo_500Medium'}>{resultado}</Time>
+          <Time font={'Exo_600SemiBold_Italic'} >{resultado}</Time>
         </Clock>
       </View>
 
